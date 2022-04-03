@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import NavBar from "./Components/NavBar";
-import { LoginForm } from "./Components/LoginForm";
+import LoginForm from "./Components/Modals/LoginForm";
 import axios from "axios";
-import MyBeautifulForm from "./Components/MyBeauterfulForm";
-import { RegistrationForm } from "./Components/RegistrationForm";
-
+import { RegistrationForm } from "./Components/Modals/RegistrationForm/RegistrationForm";
 function App() {
   const [isLoginOpen, setLoginIsOpen] = useState(false);
   const [isRegistrationOpen, setRegistrationIsOpen] = useState(false);
@@ -38,6 +36,7 @@ function App() {
       />
       {/*<MyBeautifulForm />*/}
       <LoginForm isOpen={isLoginOpen} setLoginIsOpen={setLoginIsOpen} />
+
       <RegistrationForm
         isOpen={isRegistrationOpen}
         setRegistrationIsOpen={setRegistrationIsOpen}

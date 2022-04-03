@@ -16,6 +16,12 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "1.7rem",
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "1.3rem",
+    },
   },
   margin1: {
     margin: theme.spacing(1),

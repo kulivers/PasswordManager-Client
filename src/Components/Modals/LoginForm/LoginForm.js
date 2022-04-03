@@ -1,3 +1,4 @@
+import { useStyles } from "./styles";
 import Zoom from "@mui/material/Zoom";
 import { Container, Grid, TextField } from "@mui/material";
 import { useState } from "react";
@@ -5,88 +6,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-
-const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    height: "100%",
-    width: "100%",
-  },
-  bluringBack: {
-    backgroundColor: "RGB(0, 0, 0, 0.2)",
-    filter: "blur(8px)",
-    zIndex: 12,
-    height: "100%",
-    width: "100%",
-    transition: "background 2s",
-    boxShadow: "0 0 0 0",
-  },
-  root: {
-    zIndex: 2,
-    "& .MuiInputBase-root": {
-      color: "white",
-      fontWeight: "bold",
-    },
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
-      color: "white",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& .fieldset": {
-        color: "white",
-      },
-      "&:hover fieldset": {
-        borderColor: "white",
-        color: "white",
-      },
-      "& .Mui-focused fieldset": {
-        color: "white",
-        borderColor: "white",
-      },
-      "& .Mui fieldset": {
-        color: "white",
-        borderColor: "white",
-      },
-    },
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    padding: theme.spacing(4),
-    width: "40%",
-    boxSizing: "border-box",
-    display: "inline-block",
-    backgroundColor: theme.palette.info.main,
-    border: "1px solid white",
-    borderRadius: "10px",
-  },
-  form: {
-    color: "white",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputProps: {
-    color: "white",
-  },
-  button: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  input: {
-    width: "100%",
-    color: "white",
-    "&&": { margin: theme.spacing(1), color: "white" },
-  },
-  inputContainer: { color: "white" },
-}));
+import IconButton from "@material-ui/core/IconButton";
+import ToggleIcon from "material-ui-toggle-icon";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 export const LoginForm = ({ isOpen, setLoginIsOpen, ...props }) => {
   const classes = useStyles();
-
+  const [showPassword, setShowPassword] = useState(false);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -110,7 +37,10 @@ export const LoginForm = ({ isOpen, setLoginIsOpen, ...props }) => {
 
   return isOpen ? (
     <div className={classes.wrapper}>
-      <div className={classes.bluringBack} />
+      <div
+        className={classes.bluringBack}
+        onClick={() => setLoginIsOpen(!isOpen)}
+      />
       <Container maxWidth="sm" className={classes.root}>
         <Zoom
           in={isOpen}
@@ -131,17 +61,26 @@ export const LoginForm = ({ isOpen, setLoginIsOpen, ...props }) => {
                   value={login}
                   onChange={handleLogin}
                   className={classes.input}
-                  fontColor="purple"
                   inputProps={classes.inputProps}
                 />
-                <TextField
-                  id="standard-basic"
-                  type="password"
-                  value={password}
-                  onChange={handlePassword}
-                  className={classes.input}
-                  label={"Password"}
-                />
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <TextField
+                    id="standard-basic"
+                    type={!showPassword ? "password" : "text"}
+                    value={password}
+                    onChange={handlePassword}
+                    className={classes.input}
+                    label={"Password"}
+                  />
+                  <IconButton onClick={() => setShowPassword(!showPassword)}>
+                    <ToggleIcon
+                      on={showPassword}
+                      onIcon={<Visibility />}
+                      offIcon={<VisibilityOff />}
+                      color="action"
+                    />
+                  </IconButton>
+                </div>
               </Grid>
               <Grid item style={{ margin: "0 auto" }}>
                 <Button
@@ -160,6 +99,7 @@ export const LoginForm = ({ isOpen, setLoginIsOpen, ...props }) => {
                   color="inherit"
                   variant="outlined"
                   className={classes.button}
+                  onClick={() => setLoginIsOpen(!isOpen)}
                 >
                   Send
                 </Button>
