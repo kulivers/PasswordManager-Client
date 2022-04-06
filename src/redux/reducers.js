@@ -1,51 +1,49 @@
 import { combineReducers } from "redux";
 import { handleActions } from "redux-actions";
-import { handleAction } from "redux-actions";
-import { addAccount } from "./actionCreators";
+import {
+  addAccount,
+  deleteAccount,
+  fetchAccessToken,
+  fetchAccounts,
+  refreshTokensAction,
+  signOut,
+  updateAccount,
+} from "./actionCreators";
 
-const initialState = { accounts: [{ login: "sad", password: "boy" }] };
-
-const accountsReducer = handleActions(
-  {
-    [addAccount.toString()]: (state, action) => {
-      // let copy = state.accounts;
-      // copy.push(action.payload);
-      return { ...state, accounts: [...state.accounts, action.payload] };
-    },
+const initialState = {
+  auth: {
+    isAuth: false,
+    accessToken: null,
+    refreshToken: null,
   },
-  initialState
+  accounts: [{ login: "sad", password: "boy" }],
+};
+
+const auth = handleActions(
+  {
+    [fetchAccessToken.toString()]: (state, action) => null,
+    [refreshTokensAction.toString()]: (state, action) => null,
+    [signOut.toString()]: (state, action) => null,
+  },
+  initialState.auth
+);
+const accounts = handleActions(
+  {
+    [fetchAccounts.toString()]: (state, action) => {
+      return { ...state };
+    },
+    [addAccount.toString()]: (state, action) => [
+      ...state.accounts,
+      action.payload,
+    ],
+
+    [deleteAccount.toString()]: (state) => null,
+    [updateAccount.toString()]: (state, action) => null,
+  },
+  initialState.accounts
 );
 
-// const countReducer = handleActions(
-//   {
-//     [increment_counter.toString()]: (state) => ({
-//       counter: state.counter + 1,
-//     }),
-//     [decrement_counter.toString()]: (state) => ({
-//       counter: state.counter - 1,
-//     }),
-//   },
-//   initialState
-// );
-//
-// const wordReducer = handleActions(
-//   {
-//     [add_word.toString()]: (state, { payload }) => {
-//       let newWords = state.words.split(" ");
-//       newWords.push(payload);
-//       newWords = newWords.join(" ");
-//       return { ...state, words: newWords };
-//     },
-//     [delete_word.toString()]: (state) => {
-//       let newWords = state.words.split(" ");
-//       newWords.pop();
-//       newWords = newWords.join(" ");
-//       return { ...state, words: newWords };
-//     },
-//   },
-//   initialState
-// );
-
 export default combineReducers({
-  accountsReducer: accountsReducer,
+  accountsReducer: accounts,
+  authReducer: auth,
 });
