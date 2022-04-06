@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useState } from "react";
+import Typography from "@material-ui/core/Typography";
 
 export const RegistrationForm = ({ isOpen, setRegistrationIsOpen }) => {
   const classes = useStyles();
@@ -43,6 +44,15 @@ export const RegistrationForm = ({ isOpen, setRegistrationIsOpen }) => {
           style={{ transitionDelay: isOpen ? "200ms" : "200ms" }}
         >
           <form className={classes.form} onSubmit={formik.handleSubmit}>
+            <Grid item sm>
+              <Typography
+                variant={"h4"}
+                align={"center"}
+                className={classes.topLabel}
+              >
+                Registration
+              </Typography>
+            </Grid>
             <Grid
               container
               direction="column"

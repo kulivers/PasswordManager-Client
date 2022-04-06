@@ -3,7 +3,10 @@ import NavBar from "./Components/NavBar";
 import LoginForm from "./Components/Modals/LoginForm";
 import axios from "axios";
 import { RegistrationForm } from "./Components/Modals/RegistrationForm/RegistrationForm";
-function App() {
+import { connect } from "react-redux";
+import { addAccount } from "./redux/actionCreators";
+
+function App({ addAccount, accounts, ...props }) {
   const [isLoginOpen, setLoginIsOpen] = useState(false);
   const [isRegistrationOpen, setRegistrationIsOpen] = useState(false);
 
@@ -34,15 +37,46 @@ function App() {
         setRegistrationIsOpen={setRegistrationIsOpen}
         isRegistrationOpen={isRegistrationOpen}
       />
-      {/*<MyBeautifulForm />*/}
       <LoginForm isOpen={isLoginOpen} setLoginIsOpen={setLoginIsOpen} />
 
       <RegistrationForm
         isOpen={isRegistrationOpen}
         setRegistrationIsOpen={setRegistrationIsOpen}
       />
+      <button
+        onClick={() => {
+          addAccount({ login: "somebody", password: "somebody" });
+        }}
+      >
+        add acc
+      </button>
+      <button
+        onClick={() => {
+          console.log(accounts);
+        }}
+      >
+        clg accounts
+      </button>
+      <div key={accounts.length}>
+        {accounts.map((account) => (
+          <li key={account.login}>
+            {account.login} {account.password}
+          </li>
+        ))}
+      </div>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    accounts: state.accountsReducer.accounts,
+  };
+};
+
+const mapDispatchToProps = {
+  addAccount,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default App;

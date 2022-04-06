@@ -23,8 +23,10 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.3rem",
     },
   },
-  margin1: {
-    margin: theme.spacing(1),
+  authButton: {
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "0.7rem",
+    },
   },
 }));
 
@@ -33,10 +35,8 @@ export default function NavBar({
   setLoginIsOpen,
   setRegistrationIsOpen,
   isRegistrationOpen,
-  ...props
 }) {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -55,15 +55,26 @@ export default function NavBar({
           <Button
             color="inherit"
             variant="outlined"
-            onClick={() => setLoginIsOpen(!isLoginOpen)}
-            className={classes.margin1}
+            onClick={() => {
+              if (isRegistrationOpen)
+                setRegistrationIsOpen(!isRegistrationOpen);
+              setLoginIsOpen(!isLoginOpen);
+            }}
+            className={classes.authButton}
+            style={{ marginRight: "8px" }}
           >
             Login
           </Button>{" "}
           <Button
             color="default"
             variant={"contained"}
-            onClick={() => setRegistrationIsOpen(!isRegistrationOpen)}
+            onClick={() => {
+              if (isLoginOpen) {
+                setLoginIsOpen(!isLoginOpen);
+              }
+              setRegistrationIsOpen(!isRegistrationOpen);
+            }}
+            className={classes.authButton}
           >
             Registration
           </Button>
