@@ -4,25 +4,19 @@ import LoginForm from "./Components/Modals/LoginForm";
 import axios from "axios";
 import { RegistrationForm } from "./Components/Modals/RegistrationForm/RegistrationForm";
 import { connect } from "react-redux";
-import { addAccount } from "./redux/actionCreators";
+import {
+  addAccount,
+  registerUser,
+  registerUserFailure,
+  registerUserSuccess,
+} from "./redux/actionCreators";
+import { Slide } from "@material-ui/core";
+import { SnackbarProvider } from "notistack";
 
-function App({ addAccount, accounts, ...props }) {
+function App({ accounts, ...props }) {
   const [isLoginOpen, setLoginIsOpen] = useState(false);
+
   const [isRegistrationOpen, setRegistrationIsOpen] = useState(false);
-
-  const makeRequest = async () => {
-    const url = "https://localhost:5001/api/token";
-    const body = {
-      firstName: "Egor",
-      LastName: "cooleshov",
-      UserName: "simpleKulivers2",
-      Password: "2222qqqq",
-      email: "kulivers@mail.ru",
-    };
-    const token = await axios.post(url, body);
-    console.log(token);
-  };
-
   return (
     <div
       className="App"
@@ -38,14 +32,23 @@ function App({ addAccount, accounts, ...props }) {
         isRegistrationOpen={isRegistrationOpen}
       />
       <LoginForm isOpen={isLoginOpen} setLoginIsOpen={setLoginIsOpen} />
-
-      <RegistrationForm
-        isOpen={isRegistrationOpen}
-        setRegistrationIsOpen={setRegistrationIsOpen}
-      />
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        TransitionComponent={Slide}
+      >
+        <RegistrationForm
+          isOpen={isRegistrationOpen}
+          setRegistrationIsOpen={setRegistrationIsOpen}
+          registerUser={props.registerUser}
+          {...props}
+        />
+      </SnackbarProvider>
       <button
         onClick={() => {
-          addAccount({ login: "somebody", password: "somebody" });
+          props.addAccount({ login: "somebody", password: "somebody" });
         }}
       >
         add acc
@@ -70,12 +73,17 @@ function App({ addAccount, accounts, ...props }) {
 
 const mapStateToProps = (state) => {
   return {
-    accounts: state.accountsReducer.accounts,
+    registration: state.registration,
+    accounts: state.accounts,
+    auth: state.auth,
   };
 };
 
 const mapDispatchToProps = {
   addAccount,
+  registerUser,
+  registerUserSuccess,
+  registerUserFailure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

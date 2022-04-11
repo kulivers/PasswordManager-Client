@@ -7,20 +7,21 @@ import { createActions, createAction } from "redux-actions";
 const rootActionCreator = createActions({
   AUTH: {
     AUTHORIZE: {
+      AUTHORIZE: null,
       FETCH_ACCESS_TOKEN: null,
       REFRESH_TOKENS_ACTION: null,
       SIGN_OUT: null,
       STATUS: {
         AUTHORIZE_SUCCESS: null,
-        AUTHORIZE_FAILTURE: null,
+        AUTHORIZE_FAILURE: null,
       },
     },
     REGISTRATION: {
       REGISTER_USER: null,
-      // STATUS: {
-      //   REGISTRATION_SUCCESS:null,
-      //   REGISTRATION_FAILTURE:null,
-      // },
+      STATUS: {
+        REGISTER_USER_SUCCESS: null,
+        REGISTER_USER_FAILURE: null,
+      },
     },
   },
 
@@ -31,7 +32,7 @@ const rootActionCreator = createActions({
     UPDATE_ACCOUNT: null,
     // STATUS: {
     //   ACCOUNTS_REQUEST_SUCCESS:null,
-    //   ACCOUNTS_REQUEST_FAILTURE:null,
+    //   ACCOUNTS_REQUEST_FAILURE:null,
     // },
   },
   USER_IDENTITY: {
@@ -40,7 +41,7 @@ const rootActionCreator = createActions({
       RESET_PASSWORD: null,
       // STATUS: {
       //   RESET_PASSWORD_REQUEST_SUCCESS:null,
-      //   RESET_PASSWORD_REQUEST_FAILTURE:null,
+      //   RESET_PASSWORD_REQUEST_FAILURE:null,
       // },
     },
     CONFIRM_EMAIL: {
@@ -48,7 +49,7 @@ const rootActionCreator = createActions({
       CONFIRM_EMAIL: null,
       // STATUS: {
       //   CONFIRM_EMAIL_REQUEST_SUCCESS:null,
-      //   CONFIRM_EMAIL_REQUEST_FAILTURE:null,
+      //   CONFIRM_EMAIL_REQUEST_FAILURE:null,
       // },
     },
   },
@@ -57,14 +58,15 @@ const rootActionCreator = createActions({
 export const {
   auth: {
     authorize: {
+      authorize,
       fetchAccessToken,
       refreshTokensAction,
       signOut,
-      status: { authorizeSuccess, authorizeFailture },
+      status: { authorizeSuccess, authorizeFailure },
     },
     registration: {
       registerUser,
-      // status: { success, failture },
+      status: { registerUserSuccess, registerUserFailure },
     },
   },
 
@@ -73,18 +75,18 @@ export const {
     addAccount,
     deleteAccount,
     updateAccount,
-    // status: { success, failture },
+    // status: { success, FAILURE },
   },
   userIdentity: {
     resetPassword: {
       resetPasswordSendEmail,
       resetPassword,
-      // status: { success, failture },
+      // status: { success, FAILURE },
     },
     confirmEmail: {
       confirmEmailSendEmail,
       confirmEmail,
-      // status: { success, failture },
+      // status: { success, FAILURE },
     },
   },
 } = rootActionCreator;

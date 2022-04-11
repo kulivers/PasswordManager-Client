@@ -3,20 +3,50 @@ import Button from "@material-ui/core/Button";
 import { useFormik } from "formik";
 import { SignupSchema } from "./validationSchema";
 import { useStyles } from "./styles";
-import { Grid, Zoom } from "@material-ui/core";
+import { Grid, Slide, Zoom } from "@material-ui/core";
 import ToggleIcon from "material-ui-toggle-icon";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
+import { useSnackbar } from "notistack";
 
-export const RegistrationForm = ({ isOpen, setRegistrationIsOpen }) => {
+export const RegistrationForm = ({
+  isOpen,
+  setRegistrationIsOpen,
+  registerUser,
+  ...props
+}) => {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (values) => {
+    await registerUser(values);
+    if (!props.registration.isSuccess && props.registration.errors.length > 0) {
+      props.registration.errors.forEach((error) =>
+        enqueueSnackbar(error, {
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "right",
+          },
+          variant: "error",
+          TransitionComponent: Slide,
+        })
+      );
+    } else {
+      enqueueSnackbar("Registration completed successfuly", {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right",
+        },
+        variant: "success",
+        TransitionComponent: Slide,
+      });
+      setRegistrationIsOpen(!isOpen);
+    }
   };
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -28,7 +58,7 @@ export const RegistrationForm = ({ isOpen, setRegistrationIsOpen }) => {
     },
     validationSchema: SignupSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      handleSubmit(values);
     },
   });
 
@@ -43,7 +73,13 @@ export const RegistrationForm = ({ isOpen, setRegistrationIsOpen }) => {
           in={isOpen}
           style={{ transitionDelay: isOpen ? "200ms" : "200ms" }}
         >
-          <form className={classes.form} onSubmit={formik.handleSubmit}>
+          <form
+            className={classes.form}
+            onSubmit={(e) => {
+              e.preventDefault();
+              formik.handleSubmit();
+            }}
+          >
             <Grid item sm>
               <Typography
                 variant={"h4"}
@@ -158,7 +194,7 @@ export const RegistrationForm = ({ isOpen, setRegistrationIsOpen }) => {
               </Grid>
               <Grid item>
                 <Button
-                  type="submit"
+                  type="button"
                   color="primary"
                   variant="outlined"
                   className={classes.button}
@@ -173,7 +209,6 @@ export const RegistrationForm = ({ isOpen, setRegistrationIsOpen }) => {
                   color="inherit"
                   variant="outlined"
                   className={classes.button}
-                  onClick={() => setRegistrationIsOpen(!isOpen)}
                 >
                   Send
                 </Button>
