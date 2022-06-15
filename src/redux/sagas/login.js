@@ -1,9 +1,9 @@
 import { call, takeEvery, put } from "redux-saga/effects";
 
 import {
-  registerUser,
-  registerUserSuccess,
-  registerUserFailure,
+  authorize,
+  authorizeSuccess,
+  authorizeFailure,
 } from "../actionCreators";
 import api from "../../api";
 
@@ -16,8 +16,7 @@ export function* registerUserFlowSaga() {
 function* registerUserFlow({ payload }) {
   try {
     const data = yield call(api.post, "/registration", payload);
-    //todo проверить что Ok() mb? status code 401=error
-    console.log("registerUserFlow, data:", data);
+    //todo проверить что Ok() mb?
     yield put(registerUserSuccess(data));
   } catch (e) {
     const errors = e.response.data.Errors.map((err) => err.Description);

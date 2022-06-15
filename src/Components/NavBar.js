@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,78 +8,81 @@ import IconButton from "@material-ui/core/IconButton";
 import LockIcon from "@mui/icons-material/Lock";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    [theme.breakpoints.up("sm")]: {
-      fontSize: "1.7rem",
+    root: {
+        flexGrow: 1,
+        width: '100%'
     },
-    [theme.breakpoints.down("xs")]: {
-      fontSize: "1.3rem",
+    menuButton: {
+        marginRight: theme.spacing(2),
     },
-  },
-  authButton: {
-    [theme.breakpoints.down("xs")]: {
-      fontSize: "0.7rem",
+    title: {
+        flexGrow: 1,
+        [theme.breakpoints.up("sm")]: {
+            fontSize: "1.7rem",
+        },
+        [theme.breakpoints.down("xs")]: {
+            fontSize: "1.3rem",
+        },
     },
-  },
+    authButton: {
+        [theme.breakpoints.down("xs")]: {
+            fontSize: "0.7rem",
+        },
+    },
+    appbar: {width: '100%'},
+    toolbar: {width: '100%'}
 }));
 
 export default function NavBar({
-  isLoginOpen,
-  setLoginIsOpen,
-  setRegistrationIsOpen,
-  isRegistrationOpen,
-}) {
-  const classes = useStyles();
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <LockIcon />
-          </IconButton>
-          <Typography variant="h4" className={classes.title}>
-            Password manager
-          </Typography>
-          <Button
-            color="inherit"
-            variant="outlined"
-            onClick={() => {
-              if (isRegistrationOpen)
-                setRegistrationIsOpen(!isRegistrationOpen);
-              setLoginIsOpen(!isLoginOpen);
-            }}
-            className={classes.authButton}
-            style={{ marginRight: "8px" }}
-          >
-            Login
-          </Button>{" "}
-          <Button
-            color="default"
-            variant={"contained"}
-            onClick={() => {
-              if (isLoginOpen) {
-                setLoginIsOpen(!isLoginOpen);
-              }
-              setRegistrationIsOpen(!isRegistrationOpen);
-            }}
-            className={classes.authButton}
-          >
-            Registration
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+                                   ShowLoginForm,
+                                   toggleShowLoginForm,
+                                   toggleShowRegistrationForm,
+                                   showRegistrationForm,
+                               }) {
+    const classes = useStyles();
+    return (
+        <div className={classes.root}>
+            <AppBar position="static" className={classes.appbar}>
+                <Toolbar>
+                    <IconButton
+                        edge="start"
+                        className={classes.menuButton}
+                        color="inherit"
+                        aria-label="menu"
+                    >
+                        <LockIcon/>
+                    </IconButton>
+                    <Typography variant="h4" className={classes.title}>
+                        Password manager
+                    </Typography>
+                    <Button
+                        color="inherit"
+                        variant="outlined"
+                        onClick={() => {
+                            if (showRegistrationForm)
+                                toggleShowRegistrationForm(!showRegistrationForm);
+                            toggleShowLoginForm(!ShowLoginForm);
+                        }}
+                        className={classes.authButton}
+                        style={{marginRight: "8px"}}
+                    >
+                        Login
+                    </Button>{" "}
+                    <Button
+                        color="default"
+                        variant={"contained"}
+                        onClick={() => {
+                            if (ShowLoginForm) {
+                                toggleShowLoginForm(!ShowLoginForm);
+                            }
+                            toggleShowRegistrationForm(!showRegistrationForm);
+                        }}
+                        className={classes.authButton}
+                    >
+                        Registration
+                    </Button>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
 }

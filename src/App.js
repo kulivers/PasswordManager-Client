@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import NavBar from "./Components/NavBar";
 import LoginForm from "./Components/Modals/LoginForm";
-import axios from "axios";
 import { RegistrationForm } from "./Components/Modals/RegistrationForm/RegistrationForm";
 import { connect } from "react-redux";
 import {
@@ -10,8 +9,14 @@ import {
   registerUserFailure,
   registerUserSuccess,
 } from "./redux/actionCreators";
+import api from './api'
 import { Slide } from "@material-ui/core";
 import { SnackbarProvider } from "notistack";
+import { AccountPanel } from "./Components/PasswordsPanel/AccountPanel";
+import AccountsTable from './Components/AccountsTable'
+import MyAccountsTable from './Components/MyAccountsTable'
+
+
 
 function App({ accounts, ...props }) {
   const [isLoginOpen, setLoginIsOpen] = useState(false);
@@ -26,10 +31,10 @@ function App({ accounts, ...props }) {
       }}
     >
       <NavBar
-        setLoginIsOpen={setLoginIsOpen}
-        isLoginOpen={isLoginOpen}
-        setRegistrationIsOpen={setRegistrationIsOpen}
-        isRegistrationOpen={isRegistrationOpen}
+        toggleShowLoginForm={setLoginIsOpen}
+        ShowLoginForm={isLoginOpen}
+        toggleShowRegistrationForm={setRegistrationIsOpen}
+        showRegistrationForm={isRegistrationOpen}
       />
       <LoginForm isOpen={isLoginOpen} setLoginIsOpen={setLoginIsOpen} />
       <SnackbarProvider
@@ -55,7 +60,7 @@ function App({ accounts, ...props }) {
       </button>
       <button
         onClick={() => {
-          console.log(accounts);
+          console.log('accounts:');
         }}
       >
         clg accounts
@@ -67,9 +72,17 @@ function App({ accounts, ...props }) {
           </li>
         ))}
       </div>
+      {/*<AccountPanel />*/}
+      <MyAccountsTable/>
+      <hr/>
+      <hr/>
+      <hr/>
+      <AccountsTable/>
     </div>
   );
 }
+
+
 
 const mapStateToProps = (state) => {
   return {

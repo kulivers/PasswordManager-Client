@@ -8,20 +8,21 @@ import ToggleIcon from "material-ui-toggle-icon";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
+import { registerUser } from "../../../redux/actionCreators";
 
 export const RegistrationForm = ({
   isOpen,
   setRegistrationIsOpen,
-  registerUser,
   ...props
 }) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (values) => {
+    console.log("OPAAA");
     await registerUser(values);
     if (!props.registration.isSuccess && props.registration.errors.length > 0) {
       props.registration.errors.forEach((error) =>
@@ -57,8 +58,8 @@ export const RegistrationForm = ({
       phoneNumber: "",
     },
     validationSchema: SignupSchema,
-    onSubmit: (values) => {
-      handleSubmit(values);
+    onSubmit: async (values) => {
+      handleSubmit();
     },
   });
 
