@@ -16,17 +16,21 @@ export function* registerUserFlowSaga() {
 function* registerUserFlow({ payload }) {
   try {
     const data = yield call(api.post, "/registration", payload);
+    console.log("registerUserFlow no ex, data:", data);
     //todo проверить что Ok() mb? status code 401=error
-    console.log("registerUserFlow, data:", data);
-    yield put(registerUserSuccess(data));
+    if (data.status !== 401)
+      yield put(registerUserSuccess(data));
+    else
+      throw new Error("Something went wrong in registerUserFlow")
   } catch (e) {
+    console.log('registerUserFlow catch', e.response)
     const errors = e.response.data.Errors.map((err) => err.Description);
     yield put(registerUserFailure(errors));
   }
 }
 
 function* registerUserSuccessFlow(data) {
-  // console.log("registerUserSuccessFlow");
+  console.log("registerUserSuccessFlow");
 }
 
 function* registerUserFailureFlow(errors) {

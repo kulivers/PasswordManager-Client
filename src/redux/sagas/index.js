@@ -1,5 +1,5 @@
 import { fork } from "redux-saga/effects";
-import { registerUserFlowSaga } from "./registration";
+import { registerUserFlowSaga } from "./registrationSagas";
 
 export default function* () {
   yield fork(registerUserFlowSaga);
