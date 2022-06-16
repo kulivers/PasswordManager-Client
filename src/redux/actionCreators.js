@@ -22,6 +22,7 @@ const rootActionCreator = createActions({
         REGISTER_USER_SUCCESS: null,
         REGISTER_USER_FAILURE: null,
       },
+      STOP_SHOW_ALERTS: null
     },
   },
 
@@ -67,6 +68,7 @@ export const {
     registration: {
       registerUser,
       status: { registerUserSuccess, registerUserFailure },
+      stopShowAlerts
     },
   },
 

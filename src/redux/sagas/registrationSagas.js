@@ -34,7 +34,7 @@ function* registerUserSuccessFlow(data) {
 }
 
 function* registerUserFailureFlow(errors) {
-  // console.log("registerUserFailureFlow");
+  console.log("registerUserFailureFlow");
 }
 
 // export function* loginFlowSaga() {

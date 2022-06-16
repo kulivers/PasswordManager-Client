@@ -12,7 +12,7 @@ import {
     registerUserFailure,
     registerUser,
     signOut,
-    updateAccount,
+    updateAccount, stopShowAlerts,
 } from "./actionCreators";
 
 const initialState = {
@@ -25,21 +25,39 @@ const initialState = {
     },
     accounts: [{login: "sad", password: "boy"}],
     registration: {
+        userData: {},
         isSuccess: false,
         errors: [],
+        loadingState: {
+            isLoading: false,
+            isLoaded: false
+        },
+        showAllerts: false
     },
 };
 
 const registration = handleActions(
     {
-        [registerUser.toString()]: (state, action) => action.payload,
+        [registerUser.toString()]: (state, action) => {
+            return {...state, userData: action.payload, loadingState: {isLoading: true, isLoaded: false}};
+        },
+        [stopShowAlerts.toString()]: (state, action) => {
+            return {...state, showAllerts:false}
+        },
         [registerUserSuccess.toString()]: (state, action) => {
             console.log('registerUserSuccess reducer')
-            return {...state, isSuccess: true};
+            return {...state, isSuccess: true, loadingState: {isLoading: false, isLoaded: true}, showAllerts:true};
         },
         [registerUserFailure.toString()]: (state, action) => {
-            return {...state, errors: action.payload, isSuccess: false};
+            return {
+                ...state,
+                errors: action.payload,
+                isSuccess: false,
+                loadingState: {isLoading: false, isLoaded: true},
+                showAllerts:true
+            };
         },
+
     },
     initialState.registration
 );
