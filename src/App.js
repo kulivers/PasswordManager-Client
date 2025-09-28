@@ -8,6 +8,7 @@ import {Slide} from "@material-ui/core";
 import {SnackbarProvider} from "notistack";
 import AccountsTable from './Components/AccountsTable'
 import MyAccountsTable from './Components/MyAccountsTable'
+// import {ExampleLoaderComponent} from "./dev/palette";
 
 
 function App({accounts, ...props}) {
@@ -29,6 +30,7 @@ function App({accounts, ...props}) {
                 showRegistrationForm={isRegistrationOpen}
             />
             <LoginForm isOpen={isLoginOpen} setLoginIsOpen={setLoginIsOpen}/>
+            {/*<ExampleLoaderComponent/>*/}
             <SnackbarProvider
                 anchorOrigin={{
                     vertical: "bottom",
@@ -89,4 +91,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-// export default App;

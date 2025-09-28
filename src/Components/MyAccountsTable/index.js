@@ -61,7 +61,7 @@ const MyTableBody = ({isLoading, data}) => {
             <TableCell><EditableField isLoading={isLoading} data={data.name}/></TableCell>
             <TableCell>
                 <LoadingButton
-                    loading
+                    loading={isLoading}
                     loadingPosition="start"
                     startIcon={<SaveIcon/>}
                     variant="outlined"

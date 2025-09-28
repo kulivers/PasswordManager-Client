@@ -1,11 +1,7 @@
 import { call, takeEvery, put } from "redux-saga/effects";
 
-import {
-  authorize,
-  authorizeSuccess,
-  authorizeFailure,
-} from "../actionCreators";
 import api from "../../api";
+import {registerUser, registerUserFailure, registerUserSuccess} from "../actionCreators";
 
 export function* registerUserFlowSaga() {
   yield takeEvery(registerUser, registerUserFlow);

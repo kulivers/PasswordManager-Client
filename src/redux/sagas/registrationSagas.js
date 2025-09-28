@@ -1,40 +1,40 @@
-import { call, takeEvery, put } from "redux-saga/effects";
+import {call, takeEvery, put} from "redux-saga/effects";
 
 import {
-  registerUser,
-  registerUserSuccess,
-  registerUserFailure,
+    registerUser,
+    registerUserSuccess,
+    registerUserFailure,
 } from "../actionCreators";
 import api from "../../api";
 
 export function* registerUserFlowSaga() {
-  yield takeEvery(registerUser, registerUserFlow);
-  yield takeEvery(registerUserSuccess, registerUserSuccessFlow);
-  yield takeEvery(registerUserFailure, registerUserFailureFlow);
+    yield takeEvery(registerUser, registerUserFlow);
+    yield takeEvery(registerUserSuccess, registerUserSuccessFlow);
+    yield takeEvery(registerUserFailure, registerUserFailureFlow);
 }
 
-function* registerUserFlow({ payload }) {
-  try {
-    const data = yield call(api.post, "/registration", payload);
-    console.log("registerUserFlow no ex, data:", data);
-    //todo проверить что Ok() mb? status code 401=error
-    if (data.status !== 401)
-      yield put(registerUserSuccess(data));
-    else
-      throw new Error("Something went wrong in registerUserFlow")
-  } catch (e) {
-    console.log('registerUserFlow catch', e.response)
-    const errors = e.response.data.Errors.map((err) => err.Description);
-    yield put(registerUserFailure(errors));
-  }
+function* registerUserFlow({payload}) {
+    try {
+        const data = yield call(api.post, "/registration", payload);
+        console.log("registerUserFlow no ex, data:", data);
+        //todo проверить что Ok() mb? status code 401=error
+        if (data.status !== 401)
+            yield put(registerUserSuccess(data));
+        else
+            throw new Error("Something went wrong in registerUserFlow")
+    } catch (e) {
+        console.log('registerUserFlow catch', e.response)
+        const errors = e.response.data.Errors.map((err) => err.Description);
+        yield put(registerUserFailure(errors));
+    }
 }
 
 function* registerUserSuccessFlow(data) {
-  console.log("registerUserSuccessFlow");
+    console.log("registerUserSuccessFlow");
 }
 
 function* registerUserFailureFlow(errors) {
-  console.log("registerUserFailureFlow");
+    console.log("registerUserFailureFlow");
 }
 
 // export function* loginFlowSaga() {
