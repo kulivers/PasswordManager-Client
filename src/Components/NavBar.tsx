@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,8 +11,6 @@ import LockIcon from '@mui/icons-material/Lock';
 interface NavBarProps {
   ShowLoginForm: boolean;
   toggleShowLoginForm: (value: boolean) => void;
-  toggleShowRegistrationForm: (value: boolean) => void;
-  showRegistrationForm: boolean;
 }
 
 const StyledAppBar = styled(AppBar)({
@@ -45,9 +44,28 @@ const AuthButton = styled(Button)(({ theme }) => ({
 const NavBar: React.FC<NavBarProps> = ({
   ShowLoginForm,
   toggleShowLoginForm,
-  toggleShowRegistrationForm,
-  showRegistrationForm,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleRegistrationClick = () => {
+    // Close login form if open
+    if (ShowLoginForm) {
+      toggleShowLoginForm(false);
+    }
+    // Navigate to registration page
+    navigate('/register');
+  };
+
+  const handleLoginClick = () => {
+    toggleShowLoginForm(!ShowLoginForm);
+  };
+
+  // Don't show navbar on registration page
+  if (location.pathname === '/register') {
+    return null;
+  }
+
   return (
     <div style={{ flexGrow: 1, width: '100%' }}>
       <StyledAppBar position="static">
@@ -59,12 +77,7 @@ const NavBar: React.FC<NavBarProps> = ({
           <AuthButton
             color="inherit"
             variant="outlined"
-            onClick={() => {
-              if (showRegistrationForm) {
-                toggleShowRegistrationForm(!showRegistrationForm);
-              }
-              toggleShowLoginForm(!ShowLoginForm);
-            }}
+            onClick={handleLoginClick}
             style={{ marginRight: '8px' }}
           >
             Login
@@ -72,12 +85,7 @@ const NavBar: React.FC<NavBarProps> = ({
           <AuthButton
             color="primary"
             variant="contained"
-            onClick={() => {
-              if (ShowLoginForm) {
-                toggleShowLoginForm(!ShowLoginForm);
-              }
-              toggleShowRegistrationForm(!showRegistrationForm);
-            }}
+            onClick={handleRegistrationClick}
           >
             Registration
           </AuthButton>
