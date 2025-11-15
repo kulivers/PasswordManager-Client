@@ -1,6 +1,7 @@
 import EditableTable from './EditableTable';
 import fieldsArr from './fields';
 import './styles.css';
+import { Box, Typography } from '@mui/material';
 
 interface RowData {
   [key: string]: string;
@@ -20,8 +21,27 @@ export default function AccountsTable() {
   };
 
   return (
-    <div className="App">
-      <h1>Accounts</h1>
+    <Box 
+      className="App"
+      sx={{
+        padding: 4,
+        backgroundColor: 'background.paper',
+        borderRadius: 4,
+        boxShadow: 2,
+        margin: 3,
+      }}
+    >
+      <Typography 
+        variant="h4" 
+        component="h1"
+        sx={{
+          mb: 3,
+          fontWeight: 700,
+          color: 'text.primary',
+        }}
+      >
+        Accounts
+      </Typography>
       <EditableTable
         initWithoutHead
         defaultData={defaultData}
@@ -29,7 +49,7 @@ export default function AccountsTable() {
         fieldsArr={fieldsArr}
         tableName="accounts"
       />
-    </div>
+    </Box>
   );
 }
 

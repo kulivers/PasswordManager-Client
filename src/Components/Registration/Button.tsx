@@ -12,34 +12,34 @@ interface ButtonProps {
 }
 
 const StyledButton = styled(MuiButton)<{ customVariant?: string; customSize?: string }>(
-  ({ customVariant, customSize }) => {
+  ({ theme, customVariant, customSize }) => {
     const variantStyles = {
       primary: {
-        backgroundColor: '#3b82f6',
+        backgroundColor: theme.palette.primary.main,
         color: '#ffffff',
         boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
         '&:hover': {
-          backgroundColor: '#2563eb',
+          backgroundColor: theme.palette.primary.dark,
           boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
           transform: 'scale(1.02)',
         },
       },
       secondary: {
-        backgroundColor: '#475569',
+        backgroundColor: theme.palette.secondary.main,
         color: '#ffffff',
         boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
         '&:hover': {
-          backgroundColor: '#334155',
+          backgroundColor: theme.palette.secondary.dark,
           boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
           transform: 'scale(1.02)',
         },
       },
       outline: {
         backgroundColor: 'transparent',
-        color: '#3b82f6',
-        border: '2px solid #3b82f6',
+        color: theme.palette.primary.main,
+        border: `2px solid ${theme.palette.primary.main}`,
         '&:hover': {
-          backgroundColor: '#eff6ff',
+          backgroundColor: theme.palette.primary.light + '20',
         },
       },
     };
@@ -66,7 +66,7 @@ const StyledButton = styled(MuiButton)<{ customVariant?: string; customSize?: st
       transition: 'all 0.2s',
       '&:focus': {
         outline: 'none',
-        boxShadow: `0 0 0 2px ${customVariant === 'primary' ? '#3b82f6' : '#475569'}`,
+        boxShadow: `0 0 0 2px ${customVariant === 'primary' ? theme.palette.primary.main : theme.palette.secondary.main}`,
       },
       '&.Mui-disabled': {
         opacity: 0.5,

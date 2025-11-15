@@ -10,7 +10,7 @@ const Container = styled(Box)({
   gap: '8px',
 });
 
-const StepCircle = styled(Box)<{ active?: boolean }>(({ active }) => ({
+const StepCircle = styled(Box)<{ active?: boolean }>(({ theme, active }) => ({
   width: '32px',
   height: '32px',
   borderRadius: '50%',
@@ -18,22 +18,22 @@ const StepCircle = styled(Box)<{ active?: boolean }>(({ active }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   transition: 'all 0.3s',
-  backgroundColor: active ? '#3b82f6' : 'transparent',
-  color: active ? '#ffffff' : '#cbd5e1',
-  border: active ? 'none' : '2px solid #cbd5e1',
+  backgroundColor: active ? theme.palette.primary.main : 'transparent',
+  color: active ? '#ffffff' : theme.palette.text.disabled,
+  border: active ? 'none' : `2px solid ${theme.palette.text.disabled}`,
   '& span': {
     fontSize: '0.75rem',
     fontWeight: 600,
   },
 }));
 
-const Connector = styled(Box)<{ active?: boolean }>(({ active }) => ({
+const Connector = styled(Box)<{ active?: boolean }>(({ theme, active }) => ({
   width: '40px',
   height: '4px',
   marginLeft: '8px',
   marginRight: '8px',
   transition: 'all 0.3s',
-  backgroundColor: active ? '#3b82f6' : '#e2e8f0',
+  backgroundColor: active ? theme.palette.primary.main : theme.palette.divider,
   borderRadius: '2px',
   '@media (min-width: 768px)': {
     width: '64px',

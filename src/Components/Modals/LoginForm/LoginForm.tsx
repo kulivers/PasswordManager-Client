@@ -53,53 +53,94 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           style={{ transitionDelay: isOpen ? '200ms' : '200ms' }}
         >
           <Form onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item sm={12}>
-                <Typography variant="h4" align="center">
-                  Login
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Typography 
+                  variant="h4" 
+                  align="center"
+                  sx={{ 
+                    fontWeight: 700,
+                    color: 'text.primary',
+                    mb: 2
+                  }}
+                >
+                  Welcome Back
+                </Typography>
+                <Typography 
+                  variant="body2" 
+                  align="center"
+                  sx={{ 
+                    color: 'text.secondary',
+                    mb: 1
+                  }}
+                >
+                  Sign in to your account
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   id="login-input"
-                  label="Login"
+                  label="Username or Email"
                   type="text"
                   value={login}
                   onChange={handleLogin}
                   fullWidth
+                  variant="outlined"
+                  required
                 />
               </Grid>
               <Grid item xs={12}>
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                  <TextField
-                    id="password-input"
-                    type={!showPassword ? 'password' : 'text'}
-                    value={password}
-                    onChange={handlePassword}
-                    label="Password"
-                    fullWidth
-                  />
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    <ToggleIconButton
-                      on={showPassword}
-                      onIcon={<Visibility />}
-                      offIcon={<VisibilityOff />}
-                    />
-                  </IconButton>
-                </div>
+                <TextField
+                  id="password-input"
+                  type={!showPassword ? 'password' : 'text'}
+                  value={password}
+                  onChange={handlePassword}
+                  label="Password"
+                  fullWidth
+                  variant="outlined"
+                  required
+                  InputProps={{
+                    endAdornment: (
+                      <IconButton 
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                        sx={{ color: 'text.secondary' }}
+                      >
+                        <ToggleIconButton
+                          on={showPassword}
+                          onIcon={<Visibility />}
+                          offIcon={<VisibilityOff />}
+                        />
+                      </IconButton>
+                    ),
+                  }}
+                />
               </Grid>
-              <Grid item xs={12} style={{ textAlign: 'center' }}>
+              <Grid item xs={12} sx={{ mt: 2 }}>
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  sx={{ 
+                    mb: 2,
+                    py: 1.5,
+                    fontWeight: 600,
+                  }}
+                >
+                  Sign In
+                </Button>
                 <Button
                   type="button"
-                  color="primary"
                   variant="outlined"
+                  fullWidth
                   onClick={() => setLoginIsOpen(!isOpen)}
-                  style={{ marginRight: 8 }}
+                  sx={{ 
+                    py: 1.5,
+                    fontWeight: 600,
+                  }}
                 >
                   Cancel
-                </Button>
-                <Button type="submit" color="inherit" variant="outlined">
-                  Send
                 </Button>
               </Grid>
             </Grid>

@@ -7,43 +7,43 @@ const Label = styled('label')(({ theme }) => ({
   display: 'block',
   fontSize: '0.875rem',
   fontWeight: 600,
-  color: '#334155',
+  color: theme.palette.text.secondary,
   marginBottom: theme.spacing(1),
 }));
 
-const RequiredStar = styled('span')({
-  color: '#ef4444',
+const RequiredStar = styled('span')(({ theme }) => ({
+  color: theme.palette.error.main,
   marginLeft: '4px',
-});
+}));
 
-const StyledSelect = styled(Select)<{ error?: boolean }>(({ error }) => ({
-  backgroundColor: '#f8fafc',
+const StyledSelect = styled(Select)<{ error?: boolean }>(({ theme, error }) => ({
+  backgroundColor: theme.palette.background.default,
   borderRadius: '12px',
   '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: error ? '#ef4444' : '#e2e8f0',
+    borderColor: error ? theme.palette.error.main : theme.palette.divider,
   },
   '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: error ? '#ef4444' : '#cbd5e1',
+    borderColor: error ? theme.palette.error.main : theme.palette.text.disabled,
   },
   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-    borderColor: error ? '#ef4444' : '#3b82f6',
+    borderColor: error ? theme.palette.error.main : theme.palette.primary.main,
     borderWidth: '2px',
   },
   '& .MuiSelect-select': {
     padding: '16px 16px',
     paddingLeft: '48px',
     paddingRight: '48px',
-    color: '#0f172a',
+    color: theme.palette.text.primary,
   },
 }));
 
 const ErrorText = styled('p')(({ theme }) => ({
   marginTop: theme.spacing(0.5),
   fontSize: '0.875rem',
-  color: '#ef4444',
+  color: theme.palette.error.main,
 }));
 
-const IconWrapper = styled('div')({
+const IconWrapper = styled('div')(({ theme }) => ({
   position: 'absolute',
   left: '16px',
   top: '50%',
@@ -52,8 +52,8 @@ const IconWrapper = styled('div')({
   alignItems: 'center',
   pointerEvents: 'none',
   zIndex: 1,
-  color: '#94a3b8',
-});
+  color: theme.palette.text.disabled,
+}));
 
 export const SelectField: React.FC<SelectFieldProps> = ({
   label,
@@ -93,7 +93,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
           }}
         >
           <MenuItem value="" disabled>
-            <span style={{ color: '#94a3b8' }}>{placeholder}</span>
+            <span>{placeholder}</span>
           </MenuItem>
           {options.map((option) => (
             <MenuItem key={option.value} value={option.value}>

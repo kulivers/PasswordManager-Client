@@ -9,42 +9,42 @@ interface InputFieldProps extends FormFieldProps {
 
 const StyledTextField = styled(TextField)(({ theme, error }) => ({
   '& .MuiOutlinedInput-root': {
-    backgroundColor: '#f8fafc',
+    backgroundColor: theme.palette.background.default,
     borderRadius: '12px',
     '& fieldset': {
-      borderColor: error ? '#ef4444' : '#e2e8f0',
+      borderColor: error ? theme.palette.error.main : theme.palette.divider,
     },
     '&:hover fieldset': {
-      borderColor: error ? '#ef4444' : '#cbd5e1',
+      borderColor: error ? theme.palette.error.main : theme.palette.text.disabled,
     },
     '&.Mui-focused fieldset': {
-      borderColor: error ? '#ef4444' : '#3b82f6',
+      borderColor: error ? theme.palette.error.main : theme.palette.primary.main,
       borderWidth: '2px',
     },
   },
   '& .MuiOutlinedInput-input': {
     padding: '16px 16px',
-    color: '#0f172a',
+    color: theme.palette.text.primary,
     '&::placeholder': {
-      color: '#94a3b8',
+      color: theme.palette.text.disabled,
       opacity: 1,
     },
   },
   '& .MuiInputLabel-root': {
     fontWeight: 600,
     fontSize: '0.875rem',
-    color: '#334155',
+    color: theme.palette.text.secondary,
     marginBottom: theme.spacing(1),
     transform: 'none',
     position: 'relative',
     '&.Mui-focused': {
-      color: '#334155',
+      color: theme.palette.text.secondary,
     },
   },
   '& .MuiFormHelperText-root': {
     marginTop: theme.spacing(0.5),
     fontSize: '0.875rem',
-    color: '#ef4444',
+    color: theme.palette.error.main,
   },
 }));
 
@@ -52,14 +52,14 @@ const Label = styled('label')(({ theme }) => ({
   display: 'block',
   fontSize: '0.875rem',
   fontWeight: 600,
-  color: '#334155',
+  color: theme.palette.text.secondary,
   marginBottom: theme.spacing(1),
 }));
 
-const RequiredStar = styled('span')({
-  color: '#ef4444',
+const RequiredStar = styled('span')(({ theme }) => ({
+  color: theme.palette.error.main,
   marginLeft: '4px',
-});
+}));
 
 export const FormField: React.FC<InputFieldProps> = ({
   label,

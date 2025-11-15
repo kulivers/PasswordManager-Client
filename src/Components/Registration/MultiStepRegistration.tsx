@@ -30,15 +30,15 @@ const Container = styled(Box)({
   padding: '16px',
 });
 
-const MainCard = styled(Box)({
-  backgroundColor: '#ffffff',
+const MainCard = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
   borderRadius: '24px',
   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
   width: '100%',
   maxWidth: '1200px',
   overflow: 'hidden',
-  border: '1px solid #e2e8f0',
-});
+  border: `1px solid ${theme.palette.divider}`,
+}));
 
 const IllustrationSide = styled(Grid)({
   background: 'linear-gradient(to bottom right, #eff6ff, #dbeafe)',
@@ -50,14 +50,14 @@ const IllustrationSide = styled(Grid)({
   position: 'relative',
 });
 
-const BrandLogo = styled(Box)({
+const BrandLogo = styled(Box)(({ theme }) => ({
   position: 'absolute',
   top: '32px',
   left: '32px',
   fontSize: '1.5rem',
   fontWeight: 700,
-  color: '#0f172a',
-});
+  color: theme.palette.text.primary,
+}));
 
 const IllustrationContent = styled(Box)({
   textAlign: 'center',
@@ -71,17 +71,17 @@ const IllustrationImage = styled('img')({
   marginBottom: '32px',
 });
 
-const IllustrationTitle = styled(Typography)({
+const IllustrationTitle = styled(Typography)(({ theme }) => ({
   fontSize: '1.5rem',
   fontWeight: 600,
-  color: '#0f172a',
+  color: theme.palette.text.primary,
   marginBottom: '16px',
-});
+}));
 
-const IllustrationSubtitle = styled(Typography)({
+const IllustrationSubtitle = styled(Typography)(({ theme }) => ({
   fontSize: '1.125rem',
-  color: '#64748b',
-});
+  color: theme.palette.text.secondary,
+}));
 
 const FormSide = styled(Grid)({
   padding: '48px',
@@ -90,20 +90,20 @@ const FormSide = styled(Grid)({
   justifyContent: 'center',
 });
 
-const LoginLink = styled(Box)({
+const LoginLink = styled(Box)(({ theme }) => ({
   textAlign: 'right',
   marginBottom: '32px',
   fontSize: '0.875rem',
-  color: '#64748b',
+  color: theme.palette.text.secondary,
   '& a': {
-    color: '#3b82f6',
+    color: theme.palette.primary.main,
     fontWeight: 600,
     textDecoration: 'none',
     '&:hover': {
-      color: '#2563eb',
+      color: theme.palette.primary.dark,
     },
   },
-});
+}));
 
 const FormHeader = styled(Box)({
   marginBottom: '32px',
@@ -120,39 +120,39 @@ const ProgressHeader = styled(Box)({
   marginBottom: '16px',
 });
 
-const StepTitle = styled(Typography)({
+const StepTitle = styled(Typography)(({ theme }) => ({
   fontSize: '1.5rem',
   fontWeight: 700,
-  color: '#0f172a',
-});
+  color: theme.palette.text.primary,
+}));
 
-const StepCounter = styled(Typography)({
+const StepCounter = styled(Typography)(({ theme }) => ({
   fontSize: '0.875rem',
-  color: '#64748b',
-});
+  color: theme.palette.text.secondary,
+}));
 
 const FormContent = styled(Box)({
   flex: 1,
 });
 
-const Footer = styled(Box)({
+const Footer = styled(Box)(({ theme }) => ({
   marginTop: '32px',
   textAlign: 'center',
   fontSize: '0.75rem',
-  color: '#64748b',
+  color: theme.palette.text.secondary,
   '& button': {
     background: 'none',
     border: 'none',
-    color: '#3b82f6',
+    color: theme.palette.primary.main,
     fontWeight: 500,
     cursor: 'pointer',
     padding: 0,
     font: 'inherit',
     '&:hover': {
-      color: '#2563eb',
+      color: theme.palette.primary.dark,
     },
   },
-});
+}));
 
 export const MultiStepRegistration: React.FC<MultiStepRegistrationProps> = ({
   illustrationImage,

@@ -9,40 +9,82 @@ import IconButton from '@mui/material/IconButton';
 import LockIcon from '@mui/icons-material/Lock';
 
 interface NavBarProps {
-  ShowLoginForm: boolean;
-  toggleShowLoginForm: (value: boolean) => void;
+  ShowLoginForm?: boolean;
+  toggleShowLoginForm?: (value: boolean) => void;
 }
 
-const StyledAppBar = styled(AppBar)({
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
   width: '100%',
-});
+  backgroundColor: '#ffffff',
+  color: theme.palette.text.primary,
+  boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+}));
 
 const StyledToolbar = styled(Toolbar)({
   width: '100%',
+  padding: '12px 24px',
 });
 
 const MenuIconButton = styled(IconButton)(({ theme }) => ({
   marginRight: theme.spacing(2),
+  color: theme.palette.primary.main,
+  '&:hover': {
+    backgroundColor: 'rgba(59, 130, 246, 0.08)',
+  },
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
   flexGrow: 1,
+  fontWeight: 700,
+  color: theme.palette.text.primary,
   [theme.breakpoints.up('sm')]: {
-    fontSize: '1.7rem',
+    fontSize: '1.5rem',
   },
   [theme.breakpoints.down('sm')]: {
-    fontSize: '1.3rem',
+    fontSize: '1.2rem',
   },
 }));
 
-const AuthButton = styled(Button)(({ theme }) => ({
+const LoginButton = styled(Button)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+  borderRadius: '12px',
+  padding: '8px 20px',
+  borderWidth: '1.5px',
+  borderColor: theme.palette.primary.main,
+  color: theme.palette.primary.main,
+  fontWeight: 600,
+  textTransform: 'none',
+  '&:hover': {
+    borderWidth: '1.5px',
+    backgroundColor: 'rgba(59, 130, 246, 0.08)',
+    borderColor: theme.palette.primary.dark,
+  },
   [theme.breakpoints.down('sm')]: {
-    fontSize: '0.7rem',
+    fontSize: '0.75rem',
+    padding: '6px 16px',
+  },
+}));
+
+const RegisterButton = styled(Button)(({ theme }) => ({
+  borderRadius: '12px',
+  padding: '8px 20px',
+  backgroundColor: theme.palette.primary.main,
+  color: '#ffffff',
+  fontWeight: 600,
+  textTransform: 'none',
+  boxShadow: 'none',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '0.75rem',
+    padding: '6px 16px',
   },
 }));
 
 const NavBar: React.FC<NavBarProps> = ({
-  ShowLoginForm,
+  ShowLoginForm = false,
   toggleShowLoginForm,
 }) => {
   const navigate = useNavigate();
@@ -50,7 +92,7 @@ const NavBar: React.FC<NavBarProps> = ({
 
   const handleRegistrationClick = () => {
     // Close login form if open
-    if (ShowLoginForm) {
+    if (ShowLoginForm && toggleShowLoginForm) {
       toggleShowLoginForm(false);
     }
     // Navigate to registration page
@@ -58,7 +100,9 @@ const NavBar: React.FC<NavBarProps> = ({
   };
 
   const handleLoginClick = () => {
-    toggleShowLoginForm(!ShowLoginForm);
+    if (toggleShowLoginForm) {
+      toggleShowLoginForm(!ShowLoginForm);
+    }
   };
 
   // Don't show navbar on registration page
@@ -70,25 +114,24 @@ const NavBar: React.FC<NavBarProps> = ({
     <div style={{ flexGrow: 1, width: '100%' }}>
       <StyledAppBar position="static">
         <StyledToolbar>
-          <MenuIconButton edge="start" color="inherit" aria-label="menu">
+          <MenuIconButton edge="start" aria-label="menu">
             <LockIcon />
           </MenuIconButton>
-          <Title variant="h4">Password manager</Title>
-          <AuthButton
-            color="inherit"
-            variant="outlined"
-            onClick={handleLoginClick}
-            style={{ marginRight: '8px' }}
-          >
-            Login
-          </AuthButton>
-          <AuthButton
-            color="primary"
+          <Title variant="h4">PasswordManager</Title>
+          {toggleShowLoginForm && (
+            <LoginButton
+              variant="outlined"
+              onClick={handleLoginClick}
+            >
+              Login
+            </LoginButton>
+          )}
+          <RegisterButton
             variant="contained"
             onClick={handleRegistrationClick}
           >
             Registration
-          </AuthButton>
+          </RegisterButton>
         </StyledToolbar>
       </StyledAppBar>
     </div>
