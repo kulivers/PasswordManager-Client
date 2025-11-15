@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import authReducer from './slices/authSlice';
 import registrationReducer from './slices/registrationSlice';
 import accountsReducer from './slices/accountsSlice';
+import passwordsReducer from '../features/passwords/passwordsSlice';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -12,6 +13,7 @@ export const store = configureStore({
     auth: authReducer,
     registration: registrationReducer,
     accounts: accountsReducer,
+    passwords: passwordsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

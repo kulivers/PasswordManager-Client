@@ -450,7 +450,7 @@ const validationSchema = yup.object({
 ### ✅ = Выполнено | 🔄 = В процессе | ⏳ = Ожидает
 
 1. ✅ Создать TypeScript типы и интерфейсы
-2. ⏳ Создать Redux slice с actions и reducers
+2. ✅ Создать Redux slice с actions и reducers
 3. ⏳ Создать селекторы для фильтрации и поиска
 4. ⏳ Создать утилиты (passwordStrength, categoryIcons, clipboard)
 5. ⏳ Создать компонент PasswordGenerator
