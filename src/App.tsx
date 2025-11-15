@@ -3,6 +3,7 @@ import NavBar from './Components/NavBar';
 import { Slide } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
 import RegistrationPage from './pages/RegistrationPage';
+import LoginPage from './pages/LoginPage';
 import { PasswordManager } from './features/passwords/components/PasswordManager';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       >
         <Routes>
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route
             path="/"
             element={

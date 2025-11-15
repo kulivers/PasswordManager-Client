@@ -203,8 +203,8 @@ export const Step5Complete: React.FC<StepProps> = ({
       <ButtonGroup>
         <Button
           onClick={onPrevious}
-          variant="outline"
-          size="lg"
+          variant="outlined"
+          size="large"
           className="flex-1"
         >
           Back
@@ -212,7 +212,9 @@ export const Step5Complete: React.FC<StepProps> = ({
         <Button
           onClick={handleComplete}
           disabled={isLoading || isCompleting}
-          size="lg"
+          variant="contained"
+          color="primary"
+          size="large"
           className="flex-1"
         >
           {isLoading || isCompleting ? 'Creating Account...' : 'Complete Setup'}

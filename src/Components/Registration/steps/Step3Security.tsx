@@ -295,24 +295,25 @@ export const Step3Security: React.FC<StepProps> = ({
       <ButtonGroup sx={{ marginTop: 1 }}>
         <Button
           onClick={onPrevious}
-          variant="outline"
-          size="md"
+          variant="outlined"
+          size="medium"
           className="flex-1"
-          icon={
+          startIcon={
             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           }
-          iconPosition="left"
         >
           Back
         </Button>
         <Button
           onClick={handleNext}
           disabled={isLoading}
-          size="md"
+          variant="contained"
+          color="primary"
+          size="medium"
           className="flex-1"
-          icon={
+          endIcon={
             isLoading ? (
               <svg className="animate-spin" width="20" height="20" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -324,7 +325,6 @@ export const Step3Security: React.FC<StepProps> = ({
               </svg>
             )
           }
-          iconPosition="right"
         >
           {isLoading ? 'Saving...' : 'Continue'}
         </Button>

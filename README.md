@@ -1,6 +1,16 @@
-# Getting Started with Create React App
+# Password Manager Client
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## 🤖 AI-Powered Development
+
+This project is configured with **Playwright MCP** for automated browser testing and interaction. The AI assistant can:
+- 🧪 Test features in real-time
+- 🔍 Inspect and interact with the UI
+- ✅ Verify functionality automatically
+- 🐛 Debug issues by examining console and network
+
+See [PLAYWRIGHT_MCP_GUIDE.md](./PLAYWRIGHT_MCP_GUIDE.md) for detailed usage instructions.
 
 ## Available Scripts
 

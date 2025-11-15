@@ -8,11 +8,6 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import LockIcon from '@mui/icons-material/Lock';
 
-interface NavBarProps {
-  ShowLoginForm?: boolean;
-  toggleShowLoginForm?: (value: boolean) => void;
-}
-
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   width: '100%',
   backgroundColor: '#ffffff',
@@ -83,30 +78,20 @@ const RegisterButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const NavBar: React.FC<NavBarProps> = ({
-  ShowLoginForm = false,
-  toggleShowLoginForm,
-}) => {
+const NavBar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleRegistrationClick = () => {
-    // Close login form if open
-    if (ShowLoginForm && toggleShowLoginForm) {
-      toggleShowLoginForm(false);
-    }
-    // Navigate to registration page
     navigate('/register');
   };
 
   const handleLoginClick = () => {
-    if (toggleShowLoginForm) {
-      toggleShowLoginForm(!ShowLoginForm);
-    }
+    navigate('/login');
   };
 
-  // Don't show navbar on registration page
-  if (location.pathname === '/register') {
+  // Don't show navbar on registration and login pages
+  if (location.pathname === '/register' || location.pathname === '/login') {
     return null;
   }
 
@@ -118,14 +103,12 @@ const NavBar: React.FC<NavBarProps> = ({
             <LockIcon />
           </MenuIconButton>
           <Title variant="h4">PasswordManager</Title>
-          {toggleShowLoginForm && (
-            <LoginButton
-              variant="outlined"
-              onClick={handleLoginClick}
-            >
-              Login
-            </LoginButton>
-          )}
+          <LoginButton
+            variant="outlined"
+            onClick={handleLoginClick}
+          >
+            Login
+          </LoginButton>
           <RegisterButton
             variant="contained"
             onClick={handleRegistrationClick}

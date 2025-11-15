@@ -137,9 +137,12 @@ export const Step1BasicInfo: React.FC<StepProps> = ({
       <Button
         onClick={handleNext}
         disabled={isLoading}
-        size="md"
+        variant="contained"
+        color="primary"
+        size="medium"
+        fullWidth
         className="w-full"
-        icon={
+        endIcon={
           isLoading ? (
             <svg className="animate-spin" width="20" height="20" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -151,7 +154,6 @@ export const Step1BasicInfo: React.FC<StepProps> = ({
             </svg>
           )
         }
-        iconPosition="right"
       >
         {isLoading ? 'Saving...' : 'Continue'}
       </Button>

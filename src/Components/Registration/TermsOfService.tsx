@@ -127,7 +127,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({ open, onClose })
         </Section>
 
         <Box mt={3} display="flex" justifyContent="flex-end">
-          <Button onClick={onClose} variant="primary">
+          <Button onClick={onClose} variant="contained" color="primary">
             Close
           </Button>
         </Box>
