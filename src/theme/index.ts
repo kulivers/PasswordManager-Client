@@ -206,14 +206,23 @@ const theme = createTheme({
           },
         },
         contained: {
+          background: `linear-gradient(135deg, ${colors.primary[500]} 0%, ${colors.primary[700]} 100%)`,
+          transition: 'all 0.3s ease',
           '&:hover': {
+            background: `linear-gradient(135deg, ${colors.primary[600]} 0%, ${colors.primary[800]} 100%)`,
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            transform: 'translateY(-1px)',
+          },
+          '&:active': {
+            transform: 'translateY(0)',
           },
         },
         outlined: {
           borderWidth: '1.5px',
+          background: 'transparent',
           '&:hover': {
             borderWidth: '1.5px',
+            background: `linear-gradient(135deg, ${colors.primary[50]} 0%, ${colors.primary[100]} 100%)`,
           },
         },
       },
