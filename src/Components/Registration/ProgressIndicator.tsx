@@ -10,7 +10,9 @@ const Container = styled(Box)({
   gap: '8px',
 });
 
-const StepCircle = styled(Box)<{ active?: boolean }>(({ theme, active }) => ({
+const StepCircle = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'active',
+})<{ active?: boolean }>(({ theme, active }) => ({
   width: '32px',
   height: '32px',
   borderRadius: '50%',
@@ -27,7 +29,9 @@ const StepCircle = styled(Box)<{ active?: boolean }>(({ theme, active }) => ({
   },
 }));
 
-const Connector = styled(Box)<{ active?: boolean }>(({ theme, active }) => ({
+const Connector = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'active',
+})<{ active?: boolean }>(({ theme, active }) => ({
   width: '40px',
   height: '4px',
   marginLeft: '8px',

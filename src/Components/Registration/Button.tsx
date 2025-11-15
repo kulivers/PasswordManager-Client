@@ -5,68 +5,89 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   className?: string;
+  icon?: React.ReactNode;
+  iconPosition?: 'left' | 'right';
 }
 
-const StyledButton = styled(MuiButton)<{ customVariant?: string; customSize?: string }>(
-  ({ theme, customVariant, customSize }) => {
+interface StyledButtonProps {
+  customVariant?: string;
+  customSize?: string;
+}
+
+const StyledButton = styled(MuiButton, {
+  shouldForwardProp: (prop) => prop !== 'customVariant' && prop !== 'customSize',
+})<StyledButtonProps>(
+  ({ customVariant, customSize }) => {
     const variantStyles = {
       primary: {
-        backgroundColor: theme.palette.primary.main,
+        background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
         color: '#ffffff',
-        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        boxShadow: '0 4px 6px -1px rgba(59, 130, 246, 0.3)',
         '&:hover': {
-          backgroundColor: theme.palette.primary.dark,
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-          transform: 'scale(1.02)',
+          background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+          boxShadow: '0 10px 15px -3px rgba(59, 130, 246, 0.4)',
         },
       },
       secondary: {
-        backgroundColor: theme.palette.secondary.main,
+        background: 'linear-gradient(135deg, #64748b 0%, #475569 100%)',
         color: '#ffffff',
-        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        boxShadow: '0 4px 6px -1px rgba(100, 116, 139, 0.3)',
         '&:hover': {
-          backgroundColor: theme.palette.secondary.dark,
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-          transform: 'scale(1.02)',
+          background: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+          boxShadow: '0 10px 15px -3px rgba(100, 116, 139, 0.4)',
         },
       },
       outline: {
-        backgroundColor: 'transparent',
-        color: theme.palette.primary.main,
-        border: `2px solid ${theme.palette.primary.main}`,
+        backgroundColor: '#ffffff',
+        color: '#475569',
+        border: '2px solid #cbd5e1',
         '&:hover': {
-          backgroundColor: theme.palette.primary.light + '20',
+          backgroundColor: '#f8fafc',
+          borderColor: '#94a3b8',
+        },
+      },
+      ghost: {
+        backgroundColor: 'transparent',
+        color: '#64748b',
+        '&:hover': {
+          backgroundColor: '#f1f5f9',
         },
       },
     };
 
     const sizeStyles = {
       sm: {
-        padding: '8px 16px',
+        padding: '6px 12px',
         fontSize: '0.875rem',
       },
       md: {
-        padding: '12px 24px',
+        padding: '10px 20px',
         fontSize: '1rem',
       },
       lg: {
-        padding: '16px 32px',
-        fontSize: '1.125rem',
+        padding: '12px 24px',
+        fontSize: '1rem',
       },
     };
 
     return {
-      borderRadius: '12px',
+      borderRadius: '8px',
       fontWeight: 600,
       textTransform: 'none',
-      transition: 'all 0.2s',
+      transition: 'all 0.2s ease-in-out',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '8px',
       '&:focus': {
         outline: 'none',
-        boxShadow: `0 0 0 2px ${customVariant === 'primary' ? theme.palette.primary.main : theme.palette.secondary.main}`,
+        boxShadow: `0 0 0 3px ${customVariant === 'primary' ? 'rgba(59, 130, 246, 0.3)' : 'rgba(100, 116, 139, 0.3)'}`,
+      },
+      '&:active': {
+        transform: 'scale(0.98)',
       },
       '&.Mui-disabled': {
         opacity: 0.5,
@@ -86,6 +107,8 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'md',
   disabled = false,
   className = '',
+  icon,
+  iconPosition = 'right',
 }) => {
   return (
     <StyledButton
@@ -97,7 +120,9 @@ export const Button: React.FC<ButtonProps> = ({
       className={className}
       disableElevation
     >
+      {icon && iconPosition === 'left' && icon}
       {children}
+      {icon && iconPosition === 'right' && icon}
     </StyledButton>
   );
 };

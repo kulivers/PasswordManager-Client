@@ -3,6 +3,7 @@ import NavBar from './Components/NavBar';
 import { Slide } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
 import RegistrationPage from './pages/RegistrationPage';
+import { PasswordManager } from './features/passwords/components/PasswordManager';
 
 function App() {
   return (
@@ -19,14 +20,9 @@ function App() {
           <Route
             path="/"
             element={
-              <div
-                className="App"
-                style={{
-                  position: 'relative',
-                  height: '100vh',
-                }}
-              >
+              <div className="App">
                 <NavBar />
+                <PasswordManager />
               </div>
             }
           />

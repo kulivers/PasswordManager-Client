@@ -451,17 +451,17 @@ const validationSchema = yup.object({
 
 1. ✅ Создать TypeScript типы и интерфейсы
 2. ✅ Создать Redux slice с actions и reducers
-3. ⏳ Создать селекторы для фильтрации и поиска
-4. ⏳ Создать утилиты (passwordStrength, categoryIcons, clipboard)
-5. ⏳ Создать компонент PasswordGenerator
-6. ⏳ Создать PasswordForm с Formik + Yup
-7. ⏳ Создать ConfirmDialog
-8. ⏳ Создать PasswordCard
-9. ⏳ Создать SearchBar и CategoryFilter
-10. ⏳ Создать PasswordList с группировкой
-11. ⏳ Создать главный компонент PasswordManager
-12. ⏳ Интегрировать passwordsSlice в store
-13. ⏳ Добавить toast уведомления (notistack)
+3. ✅ Создать селекторы для фильтрации и поиска
+4. ✅ Создать утилиты (passwordStrength, categoryIcons, clipboard)
+5. ✅ Создать компонент PasswordGenerator
+6. ✅ Создать PasswordForm с Formik + Yup
+7. ✅ Создать ConfirmDialog
+8. ✅ Создать PasswordCard
+9. ✅ Создать SearchBar и CategoryFilter
+10. ✅ Создать PasswordList с группировкой
+11. ✅ Создать главный компонент PasswordManager
+12. ✅ Интегрировать passwordsSlice в store
+13. ✅ Добавить toast уведомления (notistack)
 
 ---
 

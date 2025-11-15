@@ -1,24 +1,20 @@
 /**
- * Password Manager Feature Entry Point
+ * Password Manager Feature - Main Entry Point
  * 
- * This file exports all public APIs from the passwords feature,
- * including types, actions, reducer, and selectors.
+ * This file exports all public APIs of the password manager feature
  */
 
-// Export types
+// Components
+export * from './components';
+export { default as PasswordManager } from './components/PasswordManager';
+
+// Redux
+export * from './passwordsSlice';
+export * from './passwordsSelectors';
+
+// Types
 export * from './types';
 
-// Export slice actions and reducer
-export {
-  addPassword,
-  updatePassword,
-  deletePassword,
-  setSearchQuery,
-  setSelectedCategory,
-  setLoading,
-  setError,
-  clearFilters,
-  resetPasswordsState,
-} from './passwordsSlice';
-
-export { default as passwordsReducer } from './passwordsSlice';
+// Utils
+export * from './utils/passwordStrength';
+export * from './utils/categoryIcons';
