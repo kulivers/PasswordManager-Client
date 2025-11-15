@@ -76,14 +76,16 @@ export const PasswordCard: React.FC<PasswordCardProps> = ({
   /**
    * Toggle password visibility
    */
-  const togglePasswordVisibility = useCallback(() => {
+  const togglePasswordVisibility = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
     setShowPassword((prev) => !prev);
   }, []);
   
   /**
    * Copy text to clipboard with visual feedback
    */
-  const handleCopy = useCallback(async (text: string, field: string) => {
+  const handleCopy = useCallback(async (e: React.MouseEvent, text: string, field: string) => {
+    e.stopPropagation();
     const success = await copyToClipboard(text);
     if (success) {
       setCopiedField(field);
@@ -94,22 +96,40 @@ export const PasswordCard: React.FC<PasswordCardProps> = ({
   /**
    * Handle edit button click
    */
-  const handleEdit = useCallback(() => {
+  const handleEdit = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
     onEdit?.(account);
   }, [account, onEdit]);
   
   /**
    * Handle delete button click
    */
-  const handleDelete = useCallback(() => {
+  const handleDelete = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
     onDelete?.(account);
   }, [account, onDelete]);
   
   /**
    * Open website in new tab
    */
-  const openWebsite = useCallback(() => {
-    window.open(account.website, '_blank', 'noopener,noreferrer');
+  const openWebsite = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    // Проверяем, что URL не пустой
+    if (!account.website) return;
+    
+    let url = account.website.trim();
+    
+    // Добавляем протокол, если его нет
+    if (!url.match(/^https?:\/\//i)) {
+      url = 'https://' + url;
+    }
+    
+    try {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      console.error('Не удалось открыть сайт:', error);
+    }
   }, [account.website]);
   
   /**
@@ -200,7 +220,7 @@ export const PasswordCard: React.FC<PasswordCardProps> = ({
           <Tooltip title={copiedField === 'username' ? 'Скопировано!' : 'Копировать'}>
             <IconButton
               size="small"
-              onClick={() => handleCopy(account.username, 'username')}
+              onClick={(e) => handleCopy(e, account.username, 'username')}
               color={copiedField === 'username' ? 'success' : 'default'}
             >
               {copiedField === 'username' ? <CheckIcon /> : <CopyIcon />}
@@ -232,7 +252,7 @@ export const PasswordCard: React.FC<PasswordCardProps> = ({
           <Tooltip title={copiedField === 'password' ? 'Скопировано!' : 'Копировать'}>
             <IconButton
               size="small"
-              onClick={() => handleCopy(account.password, 'password')}
+              onClick={(e) => handleCopy(e, account.password, 'password')}
               color={copiedField === 'password' ? 'success' : 'default'}
             >
               {copiedField === 'password' ? <CheckIcon /> : <CopyIcon />}

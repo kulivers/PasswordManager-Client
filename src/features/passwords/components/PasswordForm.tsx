@@ -64,16 +64,14 @@ interface PasswordFormProps {
 const validationSchema = yup.object({
   website: yup
     .string()
-    .required('Обязательное поле')
-    .url('Введите корректный URL (например, https://example.com)'),
+    .required('Обязательное поле'),
   username: yup
     .string()
     .required('Обязательное поле')
     .min(3, 'Минимум 3 символа'),
   password: yup
     .string()
-    .required('Обязательное поле')
-    .min(8, 'Минимум 8 символов'),
+    .required('Обязательное поле'),
   category: yup
     .string()
     .required('Выберите категорию')
